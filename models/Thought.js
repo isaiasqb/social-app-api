@@ -13,8 +13,6 @@ const ThoughtSchema = new Schema({
     type: Date,
     default: Date.now,
     get: (dateValue) => dateFormat(dateValue)
-    // ********************************************************
-    // Use a getter method to format the timestamp on query
   },
 
   username: {
@@ -30,6 +28,20 @@ const ThoughtSchema = new Schema({
     getters: true,
   },
   id: false
+},
+{
+  toJSON: {
+    virtuals: true,
+    getters: true,
+  },
+  id: false
+}
+)
+
+//***********************************************************
+//Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+ThoughtSchema.virtual('reactionCount').get(function() {
+return this.reactions.length;
 });
 
 // ********************************************************
