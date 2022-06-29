@@ -16,7 +16,7 @@ router
 .post(createUser);
 
 router
-.route('unfriend/:userId')
+.route('/unfriend/:userId/:friendToRemove')
 .put(removeFriend)
 
 // /api/users/:id
