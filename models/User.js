@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const Thought = require('./Thought');
 
 const UserSchema = new Schema(
@@ -16,8 +16,6 @@ const UserSchema = new Schema(
         /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/, "Please enter a valid emnail address."
       ]
     },
-    // ********************************************************
-    //Array of _id values referencing the Thought model
     thoughts:[
       {
         type: Schema.Types.ObjectId,
@@ -28,10 +26,10 @@ const UserSchema = new Schema(
     // ********************************************************
     // Array of _id values referencing the User model (self-reference)
     friends:[
-      {
-        // type: Schema.Types.ObjectId
-        // ref: 'User'
-      }
+      // {
+      //   type: Schema.Types.ObjectId,
+      //   ref: 'User'
+      // }
     ]
   },
   {

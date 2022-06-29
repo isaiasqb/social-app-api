@@ -34,6 +34,35 @@ const thoughtController = {
     .catch(err => res.json(err));
   },
 
+  // add a Reaction
+  addReaction({ params, body }, res) {
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $push: { reactions: body } },
+      { new: true }
+    )
+      .then(reactionData => {
+        if (!reactionData) {
+          res.status(404).json({ message: 'No Thought found with this id!' });
+          return;
+        }
+        res.json(reactionData);
+      })
+      .catch(err => res.json(err));
+  },
+
+  // remove a reaction
+  removeReaction({ params }, res) {
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $pull: { reactions: { reactionId: params.reactionId } } },
+      { new: true }
+    )
+      .then(reactionData => res.json(reactionData))
+      .catch(err => res.json(err));
+  },
+
+
   //remove a thought from the user profile
   removeThought({ params }, res) {
     Thought.findOneAndDelete({ _id: params.thoughtId })
