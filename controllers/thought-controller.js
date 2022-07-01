@@ -84,7 +84,21 @@ const thoughtController = {
       res.json(userData);
     })
     .catch(err => res.json(err));
-  }
-};
+  },
+// };
+
+
+removeOneThought({ params }, res) {
+  Thought.findOneAndDelete({ _id: params.thoughtId })
+  .then(userData => {
+    if (!userData) {
+      res.status(404).json({ message: 'No User found with this ID!' });
+      return;
+    }
+    res.json(userData);
+  })
+  .catch(err => res.json(err));
+},
+}
 
 module.exports = thoughtController;
